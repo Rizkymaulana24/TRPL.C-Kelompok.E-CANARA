@@ -1,20 +1,20 @@
-# Agricultural Soil Moisture Monitoring System (POTATO)
+# Cari Narasumber (CANARA)
 
 ---
 
 ## Description
-**POTATO** adalah cooming soon.....
+**CANARA** adalah coming soon.....
 
 ---
 
 ## Feature
-* Cooming soon....
+* Coming soon....
 
 ---
 
 ## Project Sponsor
-**SEMPULUR**
-Sempulur adalah coomin soon.......
+****
+Coming soon.......
 
 ---
 
@@ -22,10 +22,10 @@ Sempulur adalah coomin soon.......
 
 | NIM          | Nama                           | Sebagai         |
 | ------------ | ------------------------------ | --------------- |
-| 182410101127 | Dimas Pratama Purwadinata      | Scrum Master    |
-| 182410101054 | Java Hielgant Raymond Takeshi  | Product Owner   |
-| 182410103014 | Reka Putri Puspita             | Designer        |
-| 182410103012 | Muhammad Faisal Amruddin       | Programmer      |
-| 182410101076 | Mohammad Rizky Maulana         | Tester          |
+| 182410101175 | Alif Aditya Rahman             | Scrum Master    |
+| 182410101101 | Oscar Ismmail Ilham            | Product Owner   |
+| 182410101059 | Kharisma Brilliant Agnestiti   | Designer        |
+| 182410103012 | Mohammad Rizky Maulana         | Programmer      |
+| 182410101076 | Betara Candra Ariviyanto       | Tester          |
 
 ---
