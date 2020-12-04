@@ -6,80 +6,47 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name') }}</title>
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+  {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+  <link href="{{ asset('css/bootstrap.theming.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
+  @yield('head')
+  
 </head>
 
-<body>
-  <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <!-- Branding Image -->
-        <a class="navbar-brand" href="{{ url('/') }}">
-          {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          {{-- Left Side Of Navbar --}}
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            @guest
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url('about') }}">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url('contact') }}">Contact</a>
-              </li>
-            @else
-              <button class="btn btn-success"></button>
-            @endguest
-          </ul>
-
-          {{-- Right Side Of Navbar --}}
-          <ul class="navbar-nav my-2 my-lg-0">
-            <!-- Authentication Links -->
-            @guest
-              <li class="nav-item active">
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Register</a>
-              </li>
-            @else
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ Auth::user()->name }}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout
-                  </a>
-                  
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                  </form>
-                </div>
-              </li>
-            @endguest            
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    @yield('content')
-  </div>
+<body @yield('bodyStyle')>
+  @yield('body')
 
   <!-- Scripts -->
   <script src="{{ asset('js/jquery.min.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-</body>
 
+  @yield('script')
+  @yield('content')
+</body>
+<script>
+// dropdown
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "none") {
+  dropdownContent.style.display = "block";
+  } else {
+  dropdownContent.style.display = "none";
+  }
+  });
+}
+</script>
 </html>

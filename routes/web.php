@@ -11,67 +11,159 @@
 |
 */
 
-/*
-|------------------------------------
-| Static Page
-|------------------------------------
-*/
-Route::view('/', 'welcome');
-Route::view('/about', 'about');
-Route::view('/contact', 'contact');
+// // ! DEV MODE ONLY \/
+// Route::get('/forcelogout', function ()
+// {
+//     Auth::logout();
+//     return redirect()->route('welcome');
+// });
+// // ! DEV MODE ONLY /\
 
-/*
-|------------------------------------
-| Auth Routes
-|------------------------------------
-*/
-Auth::routes();
+Route::view('/', 'welcome')->middleware('guest')->name('welcome');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth
+Route::get('login', 'AuthController@showLoginForm')->name('login');
+Route::post('login', 'AuthController@login');
+Route::get('register', 'AuthController@showRegisterForm')->name('register');
+Route::post('store', 'AuthController@pengguna_store')->name('store');
+Route::post('register', 'AuthController@register');
+Route::post('logout', 'AuthController@logout')->name('logout');
+
+// Admin Dashboard
+Route::group(['prefix' => 'admin'], function ()
+{
+    Route::name('admin')->group(function()
+    {
+
+        // url : /admin
+        Route::get('/', 'AdminController@index');
+        Route::get('/profile', 'AdminController@profile')->name('.profile');
+        Route::get('/profile/edit', 'AdminController@edit')->name('.edit');
+        Route::get('/profile/password', 'AdminController@password')->name('.password');
+        Route::put('/profile/update', 'AdminController@update')->name('.update');
+        Route::put('/profile/update/password', 'AdminController@updatePassword')->name('.updatePassword');
+
+        Route::name('.narasumber')->group(function()
+        {
+            // url : /admin/narasumber
+            Route::group(['prefix' => 'narasumber'], function ()
+            {
+                Route::get('/', 'AdminController@narasumber_index');
+                Route::get('/create', 'AdminController@narasumber_create')->name('.create');
+                Route::post('/store', 'AdminController@narasumber_store')->name('.store');
+                Route::get('/{id}', 'AdminController@narasumber_show')->name('.show');
+                Route::get('/{id}/edit', 'AdminController@narasumber_edit')->name('.edit');
+                Route::put('/{id}', 'AdminController@narasumber_update')->name('.update');
+            });
+        });
+
+        Route::name('.penyelenggara')->group(function()
+        {
+            // url : /admin/penyelenggara
+            Route::group(['prefix' => 'penyelenggara'], function ()
+            {
+                Route::get('/', 'AdminController@penyelenggara_index');
+                Route::get('/create', 'AdminController@penyelenggara_create')->name('.create');
+                Route::post('/store', 'AdminController@penyelenggara_store')->name('.store');
+                Route::get('/{id}', 'AdminController@penyelenggara_show')->name('.show');
+                Route::get('/{id}/edit', 'AdminController@penyelenggara_edit')->name('.edit');
+                Route::put('/{id}', 'AdminController@penyelenggara_update')->name('.update');
+            });
+        });
+
+        Route::name('.kegiatan')->group(function()
+        {
+            // url : /admin/kegiatan
+            Route::get('/kegiatan', 'AdminController@kegiatan_index');
+            Route::get('/create', 'AdminController@kegiatan_create')->name('.create');
+            Route::post('/store', 'AdminController@kegiatan_store')->name('.store');
+            Route::get('/{id}', 'AdminController@kegiatan_show')->name('.show');
+            Route::get('/{id}/edit', 'AdminController@kegiatan_edit')->name('.edit');
+            Route::put('/{id}', 'AdminController@kegiatan_update')->name('.update');
+        });
+    });
+
+    // fallback url : /admin/any
+    Route::fallback(function()
+    {
+        return redirect()->route('admin');
+    });
+});
+
+// Narasumber Dashboard
+Route::group(['prefix' => 'narasumber'], function ()
+{
+    Route::name('narasumber')->group(function()
+    {
+
+        // url : /narasumber
+        Route::get('/', 'NarasumberController@index');
+        Route::get('/profile', 'NarasumberController@profile')->name('.profile');
+        Route::get('/profile/edit', 'NarasumberController@edit')->name('.edit');
+        Route::get('/profile/password', 'NarasumberController@password')->name('.password');
+        Route::put('/profile/update', 'NarasumberController@update')->name('.update');
+        Route::put('/profile/update/password', 'NarasumberController@updatePassword')->name('.updatePassword');
+        
+        Route::name('.penyelenggara')->group(function()
+        {
+            // url : /admin/penyelenggara
+            Route::group(['prefix' => 'penyelenggara'], function ()
+            {
+                Route::get('/', 'NarasumberController@penyelenggara_index');
+                Route::get('/{id}', 'NarasumberController@penyelenggara_show')->name('.show');
+            });
+        });
+
+        Route::name('.kegiatan')->group(function()
+        {
+            // url : /Narasumber/kegiatan
+            Route::get('/kegiatan', 'NarasumberController@kegiatan_index');
+        });
+    });
+
+    // fallback url : /narasumber/any
+    Route::fallback(function()
+    {
+        return redirect()->route('narasumber');
+    });
+});
+
+// Penyelenggara Dashboard
+Route::group(['prefix' => 'penyelenggara'], function ()
+{
+    Route::name('penyelenggara')->group(function()
+    {
+
+        // url : /penyelenggara
+        Route::get('/', 'PenyelenggaraController@index');
+        Route::get('/profile', 'PenyelenggaraController@profile')->name('.profile');
+        Route::get('/profile/edit', 'PenyelenggaraController@edit')->name('.edit');
+        Route::get('/profile/password', 'PenyelenggaraController@password')->name('.password');
+        Route::put('/profile/update', 'PenyelenggaraController@update')->name('.update');
+        Route::put('/profile/update/password', 'PenyelenggaraController@updatePassword')->name('.updatePassword');
+
+        Route::name('.kegiatan')->group(function()
+        {
+            // url : /Penyelenggara/kegiatan
+            Route::get('/kegiatan', 'PenyelenggaraController@kegiatan_index');
+            Route::get('/create', 'PenyelenggaraController@kegiatan_create')->name('.create');
+            Route::post('/store', 'PenyelenggaraController@kegiatan_store')->name('.store');
+            Route::get('/{id}', 'PenyelenggaraController@kegiatan_show')->name('.show');
+            Route::get('/{id}/edit', 'PenyelenggaraController@kegiatan_edit')->name('.edit');
+            Route::put('/{id}', 'PenyelenggaraController@kegiatan_update')->name('.update');
+        });
+    });
+
+    // fallback url : /Penyelenggara/any
+    Route::fallback(function()
+    {
+        return redirect()->route('penyelenggara');
+    });
+});
 
 
-/*
-|------------------------------------
-| Farmer Dashboard Page
-|------------------------------------
-*/
-// farmer home
-Route::get('/farmer', 'FarmerController@index')->name('farmer');
-// Data bertani
-Route::get('/farmer/farming', 'FarmerController@index');
-// Data penyiraman
-Route::get('/farmer/watering', 'FarmerController@index');
-// Data cuaca
-Route::get('/farmer/weather', 'FarmerController@index');
-// Pengaturan akun petani
-Route::get('/farmer/setting', 'FarmerController@index');
-
-
-/*
-|------------------------------------
-| Admin Dashboard Page
-|------------------------------------
-*/
-// admin home
-Route::get('/admin', 'AdminController@index')->name('admin');
-// Data broadcast
-Route::get('/admin/broadcast', 'AdminController@index');
-// Data tanaman
-Route::get('/admin/plant', 'AdminController@index');
-// Data petani
-Route::get('/admin/farmer', 'AdminController@index');
-// Data bertani
-Route::get('/admin/farming', 'AdminController@index');
-// Data penyiraman
-Route::get('/admin/watering', 'AdminController@index');
-// Data cuaca
-Route::get('/admin/weather', 'AdminController@index');
-// Pengaturan akun admin
-Route::get('/admin/setting', 'AdminController@index');
-
-/*
-|------------------------------------
-| API untuk sensor
-|------------------------------------
-*/
-Route::post('/api/soilmoisture', 'SoilMoistureController@store');
+// fallback url : /any
+Route::fallback(function()
+{
+    return redirect()->route('login');
+});
