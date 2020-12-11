@@ -432,6 +432,29 @@ class AdminController extends Controller
         return redirect()->route('admin.kegiatan.show', ['id' => $kegiatan->id]);
     }
 
+    public function kegiatan_decline(Request $request, $id)
+    {
+        $kegiatan = kegiatan::findOrFail($id);
+        
+        if ($this->declinekegiatan(['declined' => 0])) {
+            return redirect()->route('admin.kegiatan')->with(['success' => 'Verifikasi Berhasil']);
+        }
+        return redirect()->route('admin.kegiatan')->with(['failure' => 'Verifikasi gagal']);
+    }
+
+    public function kegiatan_approve(Request $request, $id)
+    {
+        $kegiatan = kegiatan::findOrFail($id);
+
+        if ($this->approvekegiatan($request, $kegiatan)) {
+            Session::flash('success','Data berhasil diperbarui');
+        } else {
+            Session::flash('failure','Data gagal diperbarui');
+        }
+
+        return redirect()->route('admin.kegiatan');
+    }
+
     // // ? DELETE
     // // ENDPOINT :: kegiatan delete
     // // api untuk menghapus siaran (hapus hanya untuk petani)
@@ -467,4 +490,26 @@ class AdminController extends Controller
     {
         return self::ext_AttemptUpdatekegiatan($request, $kegiatan);
     }
+    
+    // private function declinekegiatan($request, $kegiatan)
+    // {
+    //     return self::ext_declinekegiatan($request, $kegiatan);
+    // }
+
+    // private function approvekegiatan($request, $kegiatan)
+    // {
+    //     return self::ext_approvekegiatan($request, $kegiatan);
+    // }
+
+    // protected static function ext_declinekegiatan($request, $kegiatan)
+    // {
+    //     $kegiatan->status = 'Di Tolak';
+    //     return $kegiatan->save();
+    // }
+
+    // protected static function ext_approvekegiatan($request, $kegiatan)
+    // {
+    //     $kegiatan->status = 'Di Terima';
+    //     return $kegiatan->save();
+    // }
 }

@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin'], function ()
             Route::get('/{id}', 'AdminController@kegiatan_show')->name('.show');
             Route::get('/{id}/edit', 'AdminController@kegiatan_edit')->name('.edit');
             Route::put('/{id}', 'AdminController@kegiatan_update')->name('.update');
+            Route::get('/{id}/decline', 'AdminController@kegiatan_decline')->name('.decline');
+            Route::get('/{id}/approve', 'AdminController@kegiatan_approve')->name('.approve');
         });
     });
 

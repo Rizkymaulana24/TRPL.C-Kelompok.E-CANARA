@@ -28,7 +28,6 @@
                     <th scope="col" class="text-center">Deskripsi</th>
                     <th scope="col" class="text-center">Tanggal Kegiatan</th>
                     <th scope="col" class="text-center">Status</th>
-                    <th scope="col" class="text-center">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,8 +37,6 @@
                       <td>{{ $kegiatan->deskripsi }}</td>
                       <td>{{ $kegiatan->tglkegiatan }}</td>
                       <td>{{ $kegiatan->status }}</td>
-                      <td>
-                      <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.kegiatan.edit',['id' => $kegiatan->id]) }}" role="button">Ubah</a></td>
                     </tr>
                 </tbody>
               </table>

@@ -12,7 +12,7 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
         <a class="nav-link {{ Request::is('penyelenggara') || Request::is('penyelenggara/profile*') ? 'active' : 'text-dark' }}" href="{{ route('penyelenggara') }}">Home</a>
       </li>
       <li class="nav-item my-1">
-        <a class="nav-link {{ Request::is('penyelenggara/kegiatan*') ? 'active' : 'text-dark' }}" href="{{ route('penyelenggara.kegiatan') }}">Kegiatan</a>
+        <a class="nav-link {{ Request::is('penyelenggara/kegiatan*') ? 'active' : 'text-dark' }}" href="{{ route('penyelenggara.kegiatan') }}">Data Kegiatan</a>
       </li>
     </ul>
   </div>

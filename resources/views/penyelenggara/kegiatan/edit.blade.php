@@ -6,7 +6,7 @@
     <div class="spacer-2"></div>
 
     <nav class="navbar navbar-light bg-light rounded text-dark shadow-sm">
-      <span class="h3 m-0">Edit Data Siaran</span>
+      <span class="h3 m-0">Edit Data Kegiatan</span>
     </nav>
 
     <div class="spacer-2"></div>
@@ -17,6 +17,16 @@
 
         <div class="card shadow-sm">
           <div class="card-body">
+
+                            @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
     
             <form id="edit-form" action="{{ route('penyelenggara.kegiatan.update',['id' => $kegiatan->id]) }}" method="POST">
               {{ csrf_field() }}
@@ -24,7 +34,7 @@
     
               <div class="form-group">
                 <label for="namakegiatan">Nama Kegiatan</label>
-                <input type="text" class="form-control {{$errors->has('namakegiatan') ? 'is-invalid' : ''}}" id="namakegiatan" name="namakegiatan" value="{{ $kegiatan->namakegiatan }}" aria-describedby="namakegiatanFeedback" autofocus>
+                <input type="text" class="form-control" id="namakegiatan" name="namakegiatan" value="{{ $kegiatan->namakegiatan }}" aria-describedby="namakegiatanFeedback" autofocus>
                 @if ($errors->has('namakegiatan'))
                   <div id="namakegiatanFeedback" class="invalid-feedback">
                     <strong>{{ $errors->first('namakegiatan') }}</strong>
@@ -34,7 +44,7 @@
         
               <div class="form-group">
                 <label for="deskripsi">Deskripsi Kegiatan</label>
-                <textarea class="form-control {{$errors->has('deskripsi') ? 'is-invalid' : ''}}" name="deskripsi" id="deskripsi" cols="30" rows="10" aria-describedby="deskripsiFeedback">{{ $kegiatan->deskripsi }}</textarea>
+                <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" aria-describedby="deskripsiFeedback">{{ $kegiatan->deskripsi }}</textarea>
                 @if ($errors->has('deskripsi'))
                   <div id="deskripsiFeedback" class="invalid-feedback">
                     <strong>{{ $errors->first('deskripsi') }}</strong>
@@ -44,7 +54,7 @@
     
               <div class="form-group">
                 <label for="tglkegiatan">Tanggal Kegiatan</label>
-                <input type="date" class="form-control {{$errors->has('tglkegiatan') ? 'is-invalid' : ''}}" id="tglkegiatan" name="tglkegiatan" value="{{ $kegiatan->tglkegiatan }}" aria-describedby="tglkegiatanFeedback">
+                <input type="date" class="form-control" id="tglkegiatan" name="tglkegiatan" value="{{ $kegiatan->tglkegiatan }}" aria-describedby="tglkegiatanFeedback">
                 @if ($errors->has('tglkegiatan'))
                   <div id="tglkegiatanFeedback" class="invalid-feedback">
                     <strong>{{ $errors->first('tglkegiatan') }}</strong>

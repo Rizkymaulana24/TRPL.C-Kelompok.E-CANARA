@@ -14,7 +14,7 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
       <button class="dropdown-btn btn dropdown-toggle text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Data User
   </button>
-  <div class="dropdown-container">
+  <div class="dropdown-container" aria-hidden='true'>
       <li class="nav-item my-1">
         <a class="nav-link {{ Request::is('admin/narasumber*') ? 'active' : 'text-dark' }}" href="{{ route('admin.narasumber') }}">Narasumber</a>
       </li>
@@ -23,7 +23,7 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
       </li>
   </div>
       <li class="nav-item my-1">
-        <a class="nav-link {{ Request::is('admin/kegiatan*') ? 'active' : 'text-dark' }}" href="{{ route('admin.kegiatan') }}">Kegiatan</a>
+        <a class="nav-link {{ Request::is('admin/kegiatan*') ? 'active' : 'text-dark' }}" href="{{ route('admin.kegiatan') }}">Data Kegiatan</a>
       </li>
     </ul>
   </div>

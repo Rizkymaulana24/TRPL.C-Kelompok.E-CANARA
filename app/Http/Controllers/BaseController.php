@@ -46,19 +46,19 @@ class BaseController extends Controller
         ]);
     }
 
-    protected static function ext_AttemptCreateFarmer($request)
-    {
-        return User::create([
-            'name' => ucwords(strtolower($request->name)),
-            'email' => strtolower($request->email),
-            'password' => Hash::make($request->password),
-            'birthDate' => $request->birthDate,
-            'gender' => strtolower($request->gender),
-            'phone' => strtolower($request->phone),
-            'address' => $request->address,
-            'role' => strtolower('farmer')
-        ])->save();
-    }
+    // protected static function ext_AttemptCreateFarmer($request)
+    // {
+    //     return User::create([
+    //         'name' => ucwords(strtolower($request->name)),
+    //         'email' => strtolower($request->email),
+    //         'password' => Hash::make($request->password),
+    //         'birthDate' => $request->birthDate,
+    //         'gender' => strtolower($request->gender),
+    //         'phone' => strtolower($request->phone),
+    //         'address' => $request->address,
+    //         'role' => strtolower('farmer')
+    //     ])->save();
+    // }
 
     protected static function ext_ValidateUpdateUser($request, $user)
     {
@@ -115,29 +115,7 @@ class BaseController extends Controller
     }
 
     // *-----------------------------------------------------------------------
-    // *     FARMING
-    // *-----------------------------------------------------------------------
-
-    // protected static function ext_ValidateCreateFarming($request)
-    // {
-    //     return Validator::make($request->all(), [
-    //         // 'name' => 'required',
-    //         // 'minHumidity' => 'required'
-    //     ], [
-    //         // 'name.required' => 'Pesan tidak boleh kosong',
-    //         // 'minHumidity.required' => 'Data kelembaban minimal tidak boleh kosong'
-    //     ]);
-    // }
-
-    // protected static function ext_AttemptCreateFarming($request)
-    // {
-    //     return Farming::create([
-
-    //     ])->save();
-    // }
-
-    // *-----------------------------------------------------------------------
-    // *     BROADCAST
+    // *     KEGIATAN
     // *-----------------------------------------------------------------------
 
     protected static function ext_ValidateCreateUpdatekegiatan($request)
@@ -161,35 +139,5 @@ class BaseController extends Controller
     {
         $kegiatan->message = $request->message;
         return $kegiatan->save();
-    }
-    
-    // *-----------------------------------------------------------------------
-    // *     PLANT
-    // *-----------------------------------------------------------------------
-
-    protected static function ext_ValidateCreateUpdatePlant($request)
-    {
-        return Validator::make($request->all(), [
-            'name' => 'required|max:61',
-            // 'minHumidity' => 'required'
-        ], [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.max' => 'Nama terlalu panjang',
-            // 'minHumidity.required' => 'Data kelembaban minimal tidak boleh kosong'
-        ]);
-    }
-
-    protected static function ext_AttemptCreatePlant($request)
-    {
-        return Plant::create([
-            'name' => $request->name,
-            'minHumidity' => 20.0
-        ])->save();
-    }
-
-    protected static function ext_AttemptUpdatePlant($request, $plant)
-    {
-        $plant->name = $request->name;
-        return $plant->save();
     }
 }

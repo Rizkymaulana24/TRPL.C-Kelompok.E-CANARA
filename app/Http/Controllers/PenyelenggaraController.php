@@ -161,7 +161,7 @@ class PenyelenggaraController extends Controller
         if ($validator->fails()) return redirect()->route('penyelenggara.kegiatan.create')->withErrors($validator)->withInput($request->all());
 
         if ($this->attemptCreatekegiatan($request)) {
-            Session::flash('success', 'Data success');
+            Session::flash('success', 'Data kegiatan berhasil di ubah');
         } else {
             Session::flash('failure', 'Data failure');
         }
@@ -193,7 +193,7 @@ class PenyelenggaraController extends Controller
         if ($validator->fails()) return redirect()->route('penyelenggara.kegiatan.edit', ['id' => $id])->withErrors($validator)->withInput($request->all());
 
         if ($this->attemptUpdatekegiatan($request, $kegiatan)) {
-            Session::flash('success','Data berhasil diperbarui');
+            Session::flash('success','Data kegiatan berhasil diubah');
         } else {
             Session::flash('failure','Data gagal diperbarui');
         }
@@ -232,6 +232,7 @@ class PenyelenggaraController extends Controller
             'namakegiatan.max' => 'Nama kegiatan terlalu panjang',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong',
             'deskripsi.max' => 'Deskripsi terlalu panjang',
+            'tglkegiatan.required' => 'Tanggal kegiatan harus di isi',
         ]);
     }
 

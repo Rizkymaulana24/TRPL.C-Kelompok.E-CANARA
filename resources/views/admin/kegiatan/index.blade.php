@@ -38,10 +38,10 @@
                       <td>{{ $kegiatan->namakegiatan }}</td>
                       <td>{{ str_limit($kegiatan->deskripsi, 150) }}</td>
                       <td>{{ $kegiatan->tglkegiatan }}</td>
-                      <td>{{ $kegiatan->status }}</td>
+                      <td><a role="button" class="dropdown-item" data-toggle="modal" data-target="#verifModal">{{ $kegiatan->status }}</a></td>
                       <td>
                   <a class="btn btn-sm btn-link" href="{{ route('admin.kegiatan.show',['id' => $kegiatan->id]) }}" role="button">Detail</a>
-                  <a class="btn btn-sm btn-link" href="{{ route('admin.kegiatan.edit',['id' => $kegiatan->id]) }}" role="button">Ubah</a></td>
+                  <!-- <a class="btn btn-sm btn-link" href="{{ route('admin.kegiatan.edit',['id' => $kegiatan->id]) }}" role="button">Ubah</a></td> -->
                     </tr>
                   @endforeach
                 </tbody>
@@ -58,6 +58,33 @@
           </div>
         </div>
       </div>
+
+        <!-- Modal -->
+  <div class="modal fade" id="verifModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Verifikasi Kegiatan</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <a class="btn btn-danger" type="button" href="{{ route('admin.kegiatan') }}" onclick="event.preventDefault(); document.getElementById('decline-form').submit();">Decline</a>
+          <form id="decline-form" action="{{ route('admin.kegiatan') }}" method="PUT" style="display: none;">
+            {{ csrf_field() }}
+          </form>
+          <a class="btn btn-success" type="button" href="{{ route('admin.kegiatan') }}" onclick="event.preventDefault(); document.getElementById('approve-form').submit();">Approve</a>
+          <form id="approve-form" action="{{ route('admin.kegiatan') }}" method="PUT" style="display: none;">
+            {{ csrf_field() }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 <!-- 
       <div class="col-lg-3">
         <div class="card">
