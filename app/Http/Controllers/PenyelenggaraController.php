@@ -69,6 +69,19 @@ class PenyelenggaraController extends Controller
         $user->alamat = $request->alamat;
         $user->kodepos = $request->kodepos;
 
+        if ($request->hasfile('foto')) {
+            $file = $request->file('foto');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/foto/', $filename);
+            $user->foto = $filename;
+        } else {
+            return $request;
+            $user->foto = '';
+        }
+        
+        $user->jenis_identitas = $request->jenis_identitas;
+
         if ($user->save()) {
             Session::flash('success','Data berhasil diperbarui');
         } else {
@@ -161,7 +174,7 @@ class PenyelenggaraController extends Controller
         if ($validator->fails()) return redirect()->route('penyelenggara.kegiatan.create')->withErrors($validator)->withInput($request->all());
 
         if ($this->attemptCreatekegiatan($request)) {
-            Session::flash('success', 'Data kegiatan berhasil di ubah');
+            Session::flash('success', 'Data kegiatan berhasil dibuat');
         } else {
             Session::flash('failure', 'Data failure');
         }
@@ -226,13 +239,13 @@ class PenyelenggaraController extends Controller
         return Validator::make($request->all(), [
             'namakegiatan' => 'required|min:5|max:60',
             'deskripsi' => 'required|max:2048|',
-            'tglkegiatan' => 'required',
+            'tanggalpelaksanaan' => 'required',
         ], [
             'namakegiatan.required'=> 'Nama kegiatan harus di isi',
             'namakegiatan.max' => 'Nama kegiatan terlalu panjang',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong',
             'deskripsi.max' => 'Deskripsi terlalu panjang',
-            'tglkegiatan.required' => 'Tanggal kegiatan harus di isi',
+            'tanggalpelaksanaan.required' => 'Tanggal kegiatan harus di isi',
         ]);
     }
 
@@ -249,7 +262,18 @@ class PenyelenggaraController extends Controller
         return kegiatan::create([
             'namakegiatan' => $request->namakegiatan,
             'deskripsi' => $request->deskripsi,
-            'tglkegiatan' => $request->tglkegiatan
+            'tanggalpelaksanaan' => $request->tanggalpelaksanaan,
+            'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
+            'alamatkegiatan' => $request->alamatkegiatan,
+            'jenis' => $request->jenis,
+            'kategori' => $request->kategori,
+            'tingkat' => $request->tingkat,
+            'deskripsi' => $request->deskripsi,
+            'scan_proposalkegiatan' => $request->scan_proposalkegiatan,
+            'nama_penanggungjawab' => $request->nama_penanggungjawab,
+            'jabatan_penanggungjawab' => $request->jabatan_penanggungjawab,
+            'nomor_hp' => $request->nomor_hp,
+            'nomor_wa' => $request->nomor_wa
         ])->save();
     }
 
@@ -264,8 +288,18 @@ class PenyelenggaraController extends Controller
     protected static function ext_AttemptUpdatekegiatan($request, $kegiatan)
     {
         $kegiatan->namakegiatan = $request->namakegiatan;
+        $kegiatan->tanggalpelaksanaan = $request->tanggalpelaksanaan;
+        $kegiatan->waktu_pelaksanaan = $request->waktu_pelaksanaan;
+        $kegiatan->alamatkegiatan = $request->alamatkegiatan;
+        $kegiatan->jenis = $request->jenis;
+        $kegiatan->kategori = $request->kategori;
+        $kegiatan->tingkat = $request->tingkat;
         $kegiatan->deskripsi = $request->deskripsi;
-        $kegiatan->tglkegiatan = $request->tglkegiatan;
+        $kegiatan->scan_proposalkegiatan = $request->scan_proposalkegiatan;
+        $kegiatan->nama_penanggungjawab = $request->nama_penanggungjawab;
+        $kegiatan->jabatan_penanggungjawab = $request->jabatan_penanggungjawab;
+        $kegiatan->nomor_hp = $request->nomor_hp;
+        $kegiatan->nomor_wa = $request->nomor_wa;
         return $kegiatan->save();
     }
 }

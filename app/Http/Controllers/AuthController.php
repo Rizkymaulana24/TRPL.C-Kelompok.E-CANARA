@@ -115,6 +115,10 @@ class AuthController extends Controller
             return redirect()->route('narasumber');
         } else if (Auth::user()->role == 'penyelenggara') {
             return redirect()->route('penyelenggara');
+        } else if (Auth::user()->role == 'narasumberprem') {
+            return redirect()->route('narasumberprem');
+        } else if (Auth::user()->role == 'penyelenggaraprem') {
+            return redirect()->route('penyelenggaraprem');
         }
     }
     // register

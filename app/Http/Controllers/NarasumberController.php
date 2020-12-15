@@ -134,37 +134,4 @@ class NarasumberController extends Controller
             'password_confirmation.same' => 'Password konfirmasi tidak sama dengan password',
         ]);
     }
-
-    // 
-    // SOIL MOISTURE
-    // 
-
-    public function soilmoisture_index()
-    {
-        $soilmoistures = SoilMoisture::paginate(20);
-        return view('narasumber.soilmoisture.index', compact('soilmoistures'));
-    }
-
-    public function soilmoisture_show($machine_id)
-    {
-        $soilmoistures = SoilMoisture::where('machine_id', $machine_id)->paginate(20);
-        return view('narasumber.soilmoisture.show', compact('soilmoistures'));
-    }
-
-    // 
-    // WEATHER
-    // 
-
-    // view cuaca
-    public function weather_index()
-    {
-        $magetanId = '501289';
-        // extends method from Controller::class
-        $weather = $this->extend__weather_getArea($magetanId);
-        if ($weather == null) {
-            return redirect()->route('narasumber.weather');
-        }
-
-        return view('narasumber.weather.index', compact('weather'));
-    }
 }

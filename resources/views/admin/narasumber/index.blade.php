@@ -22,13 +22,7 @@
 
     <div class="card shadow-sm">
       <div class="card-body">
-
-        <!-- <div class="d-flex justify-content-between my-3">
-          <h4 class="card-title"></h4>
-          <div>
-            <a class="btn btn-primary btn-sm" href="{{ route('admin.narasumber.create') }}" role="button">Tambah</a>
-          </div>
-        </div> -->
+        </div>
 
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
@@ -48,7 +42,7 @@
                   <td>{{ $narasumber->email }}</td>
                   <td>
                     <div class="d-flex justify-content-center">
-                    <a class="btn btn-outline-info btn-sm" href="{{ route('admin.narasumber.show',['id' => $narasumber->id]) }}" role="button">Detail</a>
+                    <a class="btn btn-outline-info btn-sm" href="{{ route('admin.narasumberfree.show',['id' => $narasumber->id]) }}" role="button">Detail</a>
                     </div>
                   </td>
                 </tr>

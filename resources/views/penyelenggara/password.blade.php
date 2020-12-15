@@ -23,7 +23,7 @@
     <div class="card shadow-sm">
       <div class="card-body">
 
-        <form action="{{ route('narasumber.updatePassword') }}" method="POST">
+        <form action="{{ route('penyelenggara.updatePassword') }}" method="POST">
           {{ csrf_field() }}
           {{ method_field('PUT') }}
 
@@ -60,7 +60,7 @@
           <div class="spacer-2"></div>
     
           <div class="form-group">
-            <a class="btn btn-secondary" href="{{ route('narasumber.profile') }}" >Batal</a>
+            <a class="btn btn-secondary" href="{{ route('penyelenggara.profile') }}" >Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           

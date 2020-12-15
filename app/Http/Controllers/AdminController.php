@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\kegiatan;
+use App\Narasumber;
+use App\Penyelenggara;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
@@ -143,8 +145,14 @@ class AdminController extends Controller
     // view table semua narasumber
     public function narasumber_index()
     {
-        $narasumbers = User::where('role','narasumber')->paginate(10);
+        $narasumbers = Narasumber::where('role','narasumber')->paginate(10);
         return view('admin.narasumber.index', compact('narasumbers'));
+    }
+
+    public function narasumberprem_index()
+    {
+        $narasumbers = Narasumber::where('role','narasumberprem')->paginate(10);
+        return view('admin.narasumberprem.index', compact('narasumbers'));
     }
 
     // view buat akun narasumber
@@ -172,11 +180,20 @@ class AdminController extends Controller
     // view satu akun narasumber
     public function narasumber_show($id)
     {
-        $narasumber = User::find($id);
+        $narasumber = Narasumber::find($id);
         if ($narasumber->role != 'narasumber') {
             return redirect()->route('admin.narasumber');
         }
         return view('admin.narasumber.show', compact('narasumber'));
+    }
+
+    public function narasumberprem_show($id)
+    {
+        $narasumber = Narasumber::find($id);
+        if ($narasumber->role != 'narasumberprem') {
+            return redirect()->route('admin.narasumber');
+        }
+        return view('admin.narasumberprem.show', compact('narasumber'));
     }
 
     // view edit akun narasumber
@@ -255,8 +272,14 @@ class AdminController extends Controller
     // view table semua penyelenggara
     public function penyelenggara_index()
     {
-        $penyelenggaras = User::where('role','penyelenggara')->paginate(10);
+        $penyelenggaras = Penyelenggara::where('role','penyelenggara')->paginate(10);
         return view('admin.penyelenggara.index', compact('penyelenggaras'));
+    }
+
+    public function penyelenggaraprem_index()
+    {
+        $penyelenggaras = Penyelenggara::where('role','penyelenggaraprem')->paginate(10);
+        return view('admin.penyelenggaraprem.index', compact('penyelenggaras'));
     }
 
     // view buat akun penyelenggara
@@ -284,11 +307,20 @@ class AdminController extends Controller
     // view satu akun penyelenggara
     public function penyelenggara_show($id)
     {
-        $penyelenggara = User::find($id);
+        $penyelenggara = Penyelenggara::find($id);
         if ($penyelenggara->role != 'penyelenggara') {
             return redirect()->route('admin.penyelenggara');
         }
         return view('admin.penyelenggara.show', compact('penyelenggara'));
+    }
+
+    public function penyelenggaraprem_show($id)
+    {
+        $penyelenggara = Penyelenggara::find($id);
+        if ($penyelenggara->role != 'penyelenggaraprem') {
+            return redirect()->route('admin.penyelenggara');
+        }
+        return view('admin.penyelenggaraprem.show', compact('penyelenggara'));
     }
 
     // view edit akun penyelenggara
@@ -436,10 +468,12 @@ class AdminController extends Controller
     {
         $kegiatan = kegiatan::findOrFail($id);
         
-        if ($this->declinekegiatan(['declined' => 0])) {
-            return redirect()->route('admin.kegiatan')->with(['success' => 'Verifikasi Berhasil']);
+        if ($this->declinekegiatan($request, $kegiatan)) {
+            Session::flash('success','Data berhasil diperbarui');
+        } else {
+            Session::flash('failure','Data gagal diperbarui');
         }
-        return redirect()->route('admin.kegiatan')->with(['failure' => 'Verifikasi gagal']);
+        return redirect()->route('admin.kegiatan');
     }
 
     public function kegiatan_approve(Request $request, $id)
@@ -451,7 +485,6 @@ class AdminController extends Controller
         } else {
             Session::flash('failure','Data gagal diperbarui');
         }
-
         return redirect()->route('admin.kegiatan');
     }
 
@@ -491,25 +524,25 @@ class AdminController extends Controller
         return self::ext_AttemptUpdatekegiatan($request, $kegiatan);
     }
     
-    // private function declinekegiatan($request, $kegiatan)
-    // {
-    //     return self::ext_declinekegiatan($request, $kegiatan);
-    // }
+    private function declinekegiatan($request, $kegiatan)
+    {
+        return self::ext_declinekegiatan($request, $kegiatan);
+    }
 
-    // private function approvekegiatan($request, $kegiatan)
-    // {
-    //     return self::ext_approvekegiatan($request, $kegiatan);
-    // }
+    private function approvekegiatan($request, $kegiatan)
+    {
+        return self::ext_approvekegiatan($request, $kegiatan);
+    }
 
-    // protected static function ext_declinekegiatan($request, $kegiatan)
-    // {
-    //     $kegiatan->status = 'Di Tolak';
-    //     return $kegiatan->save();
-    // }
+    protected static function ext_declinekegiatan($request, $kegiatan)
+    {
+        $kegiatan->status = 'Kegiatan tidak disetujui';
+        return $kegiatan->save();
+    }
 
-    // protected static function ext_approvekegiatan($request, $kegiatan)
-    // {
-    //     $kegiatan->status = 'Di Terima';
-    //     return $kegiatan->save();
-    // }
+    protected static function ext_approvekegiatan($request, $kegiatan)
+    {
+        $kegiatan->status = 'Kegiatan disetujui';
+        return $kegiatan->save();
+    }
 }

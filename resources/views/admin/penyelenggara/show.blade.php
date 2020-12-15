@@ -58,8 +58,7 @@
         <div class="spacer-2"></div>
 
         <div class="form-group">
-          <a class="btn btn-secondary" href="{{ route('admin.penyelenggara') }}" >Kembali</a>
-          <!-- <a class="btn btn-primary" href="{{ route('admin.penyelenggara.edit',['id' => $penyelenggara->id]) }}" role="button">Edit</a> -->
+          <a class="btn btn-secondary" href="{{ route('admin.penyelenggarafree') }}" >Kembali</a>
         </div>
 
       </div>

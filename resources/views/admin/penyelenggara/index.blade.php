@@ -22,13 +22,6 @@
 
     <div class="card shadow-sm">
       <div class="card-body">
-<!-- 
-        <div class="d-flex justify-content-between my-3">
-          <h4 class="card-title"></h4>
-          <div>
-            <a class="btn btn-primary btn-sm" href="{{ route('admin.penyelenggara.create') }}" role="button">Tambah</a>
-          </div>
-        </div> -->
 
         <div class="table-responsive">
           <table class="table table-hover table-bordered">
@@ -48,7 +41,7 @@
                   <td>{{ $penyelenggara->email }}</td>
                   <td>
                     <div class="d-flex justify-content-center">
-                    <a class="btn btn-outline-info btn-sm" href="{{ route('admin.penyelenggara.show',['id' => $penyelenggara->id]) }}" role="button">Detail</a>
+                    <a class="btn btn-outline-info btn-sm" href="{{ route('admin.penyelenggarafree.show',['id' => $penyelenggara->id]) }}" role="button">Detail</a>
                     </div>
                   </td>
                 </tr>

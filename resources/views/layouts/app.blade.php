@@ -32,7 +32,7 @@
   @yield('script')
   @yield('content')
 </body>
-<script>
+<!-- <script>
 // dropdown
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
@@ -48,5 +48,5 @@ for (i = 0; i < dropdown.length; i++) {
   }
   });
 }
-</script>
+</script> -->
 </html>

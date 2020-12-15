@@ -9,7 +9,7 @@ class kegiatan extends Model
     protected $fillable = [
         'namakegiatan',
         'deskripsi',
-        'tglkegiatan',
+        'tanggalpelaksanaan',
         'status',
         'deleted'
     ];

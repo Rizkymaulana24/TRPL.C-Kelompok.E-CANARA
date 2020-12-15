@@ -15,21 +15,29 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username', 30);
+            $table->string('nama_lengkap', 40)->nullable();
+            $table->string('email', 40)->unique();
+            $table->string('username', 40);
             $table->string('password', 60);
-            $table->string('nama_lengkap', 30)->nullable();
-            $table->string('email', 30)->unique();
-            $table->string('nomor_hp', 15)->nullable();
-            $table->string('alamat', 30)->nullable();
-            $table->string('kecamatan', 15)->nullable();
-            $table->string('kota', 15)->nullable();
-            $table->string('provinsi', 15)->nullable();
-            $table->string('kodepos', 15)->nullable();
-            $table->string('role', 15)->default('penyelenggara');
+            $table->string('nomor_hp', 20)->nullable();
+            $table->string('alamat', 100)->nullable();
+            $table->string('kecamatan', 20)->nullable();
+            $table->string('kota', 20)->nullable();
+            $table->string('provinsi', 20)->nullable();
+            $table->string('kodepos', 10)->nullable();
+            $table->string('role', 30)->default('admin');
             $table->rememberToken();
             $table->timestamps();
         });
     }
+
+    // protected $jenis_identitas = [
+    //     'ktp',
+    //     'sim',
+    //     'passport',
+    //     'npwp',
+
+    // ];
 
     /**
      * Reverse the migrations.

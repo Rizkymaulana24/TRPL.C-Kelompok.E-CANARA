@@ -15,7 +15,7 @@
         {{ Auth::user()->nama_lengkap }}
       </button>
       <div class="dropdown-menu dropdown-menu-left dropdown-menu-lg-right">
-        <a class="dropdown-item" type="button" href="{{ route(Auth::user()->role == 'admin' ? 'admin.profile' : (Auth::user()->role == 'narasumber' ? 'narasumber.profile' : 'penyelenggara.profile')) }}">Profil</a>
+        <a class="dropdown-item" type="button" href="{{ route(Auth::user()->role == 'admin' ? 'admin.profile' : (Auth::user()->role == 'narasumber' ? 'narasumber.profile' : (Auth::user()->role == 'penyelenggara' ? 'penyelenggara.profile' : (Auth::user()->role == 'narasumberprem' ? 'narasumberprem.profile' : 'penyelenggaraprem.profile')))) }}">Profil</a>
         <a role="button" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
       </div>
     </div>

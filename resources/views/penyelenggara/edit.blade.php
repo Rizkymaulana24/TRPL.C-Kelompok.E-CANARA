@@ -14,7 +14,7 @@
     <div class="card shadow-sm">
       <div class="card-body">
 
-        <form action="{{ route('penyelenggara.update') }}" method="POST">
+        <form action="{{ route('penyelenggara.update') }}" method="POST" enctype='multipart/form-data'>
           {{ csrf_field() }}
           {{ method_field('PUT') }}
     
@@ -98,10 +98,32 @@
             @endif
           </div>
 
+          <label for="foto">Foto</label>
+          <div class="input-group">
+            <input type="file" class="custom-file-input {{$errors->has('foto') ? 'is-invalid' : ''}}" id="foto" name="foto" value="{{ $user->foto }}" aria-describedby="fotoFeedback">
+            <label for="foto" class='custom-file-label'>Pilih Foto</label>
+            @if ($errors->has('foto'))
+              <div id="fotoFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('foto') }}</strong>
+              </div>
+            @endif
+          </div>
+
+        <div class="form-group">
+          <label for="jenis_identitas">Jenis Identitas</label>
+        <select class="form-control {{$errors->has('jenis_identitas') ? 'is-invalid' : ''}}" id="jenis_identitas" name="jenis_identitas" value="{{ $user->jenis_identitas }}" aria-describedby="jenis_identitasFeedback">
+          <option value="pilih">pilih</option>
+          <option value="ktp">ktp</option>
+          <option value="sim">sim</option>
+          <option value="passport">passport</option>
+          <option value="npwp">npwp</option>
+        </select>
+        </div>
+
           <div class="spacer-2"></div>
     
           <div class="form-group">
-            <a class="btn btn-secondary" href="{{ route('narasumber.profile') }}" >Batal</a>
+            <a class="btn btn-secondary" href="{{ route('penyelenggara.profile') }}" >Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           

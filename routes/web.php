@@ -43,10 +43,10 @@ Route::group(['prefix' => 'admin'], function ()
         Route::put('/profile/update', 'AdminController@update')->name('.update');
         Route::put('/profile/update/password', 'AdminController@updatePassword')->name('.updatePassword');
 
-        Route::name('.narasumber')->group(function()
+        Route::name('.narasumberfree')->group(function()
         {
             // url : /admin/narasumber
-            Route::group(['prefix' => 'narasumber'], function ()
+            Route::group(['prefix' => 'narasumberfree'], function ()
             {
                 Route::get('/', 'AdminController@narasumber_index');
                 Route::get('/create', 'AdminController@narasumber_create')->name('.create');
@@ -57,15 +57,39 @@ Route::group(['prefix' => 'admin'], function ()
             });
         });
 
-        Route::name('.penyelenggara')->group(function()
+        Route::name('.narasumberpremium')->group(function()
+        {
+            // url : /admin/narasumberprem
+            Route::group(['prefix' => 'narasumberpremium'], function ()
+            {
+                Route::get('/', 'AdminController@narasumberprem_index');
+                Route::get('/{id}', 'AdminController@narasumberprem_show')->name('.show');
+            });
+        });
+
+        Route::name('.penyelenggarafree')->group(function()
         {
             // url : /admin/penyelenggara
-            Route::group(['prefix' => 'penyelenggara'], function ()
+            Route::group(['prefix' => 'penyelenggarafree'], function ()
             {
                 Route::get('/', 'AdminController@penyelenggara_index');
                 Route::get('/create', 'AdminController@penyelenggara_create')->name('.create');
                 Route::post('/store', 'AdminController@penyelenggara_store')->name('.store');
                 Route::get('/{id}', 'AdminController@penyelenggara_show')->name('.show');
+                Route::get('/{id}/edit', 'AdminController@penyelenggara_edit')->name('.edit');
+                Route::put('/{id}', 'AdminController@penyelenggara_update')->name('.update');
+            });
+        });
+
+        Route::name('.penyelenggarapremium')->group(function()
+        {
+            // url : /admin/penyelenggara
+            Route::group(['prefix' => 'penyelenggarapremium'], function ()
+            {
+                Route::get('/', 'AdminController@penyelenggaraprem_index');
+                Route::get('/create', 'AdminController@penyelenggara_create')->name('.create');
+                Route::post('/store', 'AdminController@penyelenggara_store')->name('.store');
+                Route::get('/{id}', 'AdminController@penyelenggaraprem_show')->name('.show');
                 Route::get('/{id}/edit', 'AdminController@penyelenggara_edit')->name('.edit');
                 Route::put('/{id}', 'AdminController@penyelenggara_update')->name('.update');
             });
@@ -123,10 +147,38 @@ Route::group(['prefix' => 'narasumber'], function ()
         });
     });
 
-    // fallback url : /narasumber/any
+    // fallback url : /narasumberprem/any
     Route::fallback(function()
     {
-        return redirect()->route('narasumber');
+        return redirect()->route('narasumberprem');
+    });
+});
+
+// narasumberprem Dashboard
+Route::group(['prefix' => 'narasumberprem'], function ()
+{
+    Route::name('narasumberprem')->group(function()
+    {
+
+        // url : /narasumberprem
+        Route::get('/', 'NarasumberpremController@index');
+        Route::get('/profile', 'NarasumberpremController@profile')->name('.profile');
+        Route::get('/profile/edit', 'NarasumberpremController@edit')->name('.edit');
+        Route::get('/profile/password', 'NarasumberpremController@password')->name('.password');
+        Route::put('/profile/update', 'NarasumberpremController@update')->name('.update');
+        Route::put('/profile/update/password', 'NarasumberpremController@updatePassword')->name('.updatePassword');
+
+        Route::name('.kegiatan')->group(function()
+        {
+            // url : /Narasumberprem/kegiatan
+            Route::get('/kegiatan', 'NarasumberpremController@kegiatan_index');
+        });
+    });
+
+    // fallback url : /Narasumberprem/any
+    Route::fallback(function()
+    {
+        return redirect()->route('narasumberprem');
     });
 });
 
@@ -160,6 +212,39 @@ Route::group(['prefix' => 'penyelenggara'], function ()
     Route::fallback(function()
     {
         return redirect()->route('penyelenggara');
+    });
+});
+
+// penyelenggaraprem Dashboard
+Route::group(['prefix' => 'penyelenggaraprem'], function ()
+{
+    Route::name('penyelenggaraprem')->group(function()
+    {
+
+        // url : /penyelenggaraprem
+        Route::get('/', 'PenyelenggarapremController@index');
+        Route::get('/profile', 'PenyelenggarapremController@profile')->name('.profile');
+        Route::get('/profile/edit', 'PenyelenggarapremController@edit')->name('.edit');
+        Route::get('/profile/password', 'PenyelenggarapremController@password')->name('.password');
+        Route::put('/profile/update', 'PenyelenggarapremController@update')->name('.update');
+        Route::put('/profile/update/password', 'PenyelenggarapremController@updatePassword')->name('.updatePassword');
+
+        Route::name('.kegiatan')->group(function()
+        {
+            // url : /Penyelenggaraprem/kegiatan
+            Route::get('/kegiatan', 'PenyelenggarapremController@kegiatan_index');
+            Route::get('/create', 'PenyelenggarapremController@kegiatan_create')->name('.create');
+            Route::post('/store', 'PenyelenggarapremController@kegiatan_store')->name('.store');
+            Route::get('/{id}', 'PenyelenggarapremController@kegiatan_show')->name('.show');
+            Route::get('/{id}/edit', 'PenyelenggarapremController@kegiatan_edit')->name('.edit');
+            Route::put('/{id}', 'PenyelenggarapremController@kegiatan_update')->name('.update');
+        });
+    });
+
+    // fallback url : /Penyelenggaraprem/any
+    Route::fallback(function()
+    {
+        return redirect()->route('penyelenggaraprem');
     });
 });
 

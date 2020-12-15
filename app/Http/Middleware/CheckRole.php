@@ -27,6 +27,18 @@ class CheckRole
             if (Auth::user()->role == 'penyelenggara') {
                 return redirect()->route('penyelenggara');
             }
+            if (Auth::narasumber()->role == 'narasumber') {
+                return redirect()->route('narasumber');
+            }
+            if (Auth::penyelenggara()->role == 'penyelenggara') {
+                return redirect()->route('penyelenggara');
+            }
+            if (Auth::narasumber()->role == 'narasumberprem') {
+                return redirect()->route('narasumberprem');
+            }
+            if (Auth::penyelenggara()->role == 'penyelenggaraprem') {
+                return redirect()->route('penyelenggaraprem');
+            }
             Auth::logout();
             return redirect()->route('welcome');
         }
