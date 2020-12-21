@@ -74,7 +74,10 @@
     
               <div class="form-group">
                 <label for="jenis">Jenis Kegiatan</label>
-                <input type="text" class="form-control" id="jenis" name="jenis" value="{{ $kegiatan->jenis }}" aria-describedby="jenisFeedback">
+                <select class="form-control {{$errors->has('jenis') ? 'is-invalid' : ''}}" id="jenis" name="jenis" value="{{ old('jenis') }}" aria-describedby="jenisFeedback" autofocus>
+                <option value="Offline">Offline</option>
+                <option value="Online">Online</option>
+                </select>
                 @if ($errors->has('jenis'))
                   <div id="jenisFeedback" class="invalid-feedback">
                     <strong>{{ $errors->first('jenis') }}</strong>

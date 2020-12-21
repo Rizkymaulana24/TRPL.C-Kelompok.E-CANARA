@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\kegiatan;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
@@ -26,6 +27,28 @@ class NarasumberpremController extends Controller
     public function index()
     {
         return view('narasumberprem.index');
+    }
+
+    public function pencarian()
+    {
+        return view('narasumberprem.pencarian', ['kegiatans' => kegiatan::latest()->paginate(10)]);
+    }
+
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+ 
+        // mengambil data dari table pegawai sesuai pencarian data
+        $kegiatan = kegiatan::where('namakegiatan','like',"%".$cari."%")->paginate();
+ 
+        // mengirim data pegawai ke view index
+        return view('narasumberprem.pencarian',['kegiatans' => $kegiatan]);
+    }
+
+    public function show($id)
+    {
+        return view('narasumberprem.pencarian.show', ['kegiatan' => kegiatan::findOrFail($id)]);
     }
 
     // view narasumberprem profile

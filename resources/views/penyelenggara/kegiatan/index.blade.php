@@ -67,14 +67,6 @@
                 </tbody>
               </table>
             </div>
-    
-            <div class="d-flex justify-content-between">
-              <p>Menampilkan {{ $kegiatans->count() }} dari {{ $kegiatans->total() }} kegiatan</p>
-              <nav aria-label="Page navigation example">
-                {{ $kegiatans->links('vendor.pagination.bootstrap') }}
-              </nav>
-            </div>
-    
           </div>
         </div>
       </div>

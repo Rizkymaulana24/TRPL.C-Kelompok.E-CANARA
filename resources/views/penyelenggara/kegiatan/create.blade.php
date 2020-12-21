@@ -20,6 +20,14 @@
     
             <form id="create-form" action="{{ route('penyelenggara.kegiatan.store') }}" method="POST">
               {{ csrf_field() }}
+
+              <div class="form-group">
+                <label for="user_id">Nama</label>
+                <select class="form-control" name="user_id" id="user_id">
+                  <option value="{{ Auth::user()->id }}">{{ Auth::user()->username }}</option>
+                </select>
+                <div class="invalid-feedback">{{ $errors->first('user_id') }}</div>
+              </div>
     
               <div class="form-group">
                 <label for="namakegiatan">Nama Kegiatan</label>
@@ -63,7 +71,10 @@
     
               <div class="form-group">
                 <label for="jenis">Jenis Kegiatan</label>
-                <input type="text" class="form-control {{$errors->has('jenis') ? 'is-invalid' : ''}}" id="jenis" name="jenis" value="{{ old('jenis') }}" aria-describedby="jenisFeedback" autofocus>
+                <select class="form-control {{$errors->has('jenis') ? 'is-invalid' : ''}}" id="jenis" name="jenis" value="{{ old('jenis') }}" aria-describedby="jenisFeedback" autofocus>
+                <option value="Offline">Offline</option>
+                <option value="Online">Online</option>
+                </select>
                 @if ($errors->has('jenis'))
                   <div id="jenisFeedback" class="invalid-feedback">
                     <strong>{{ $errors->first('jenis') }}</strong>

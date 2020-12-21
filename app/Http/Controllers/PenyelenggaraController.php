@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\kegiatan;
+use App\Narasumber;
+use App\Penyelenggara;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
@@ -28,6 +30,30 @@ class PenyelenggaraController extends Controller
     {
         return view('penyelenggara.index');
     }
+
+    public function pencarian()
+    {
+        $narasumbers = User::where('role',['narasumber','narasumberprem'])->paginate(10);
+        return view('penyelenggara.pencarian', compact('narasumbers'));
+    }
+
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+ 
+        // mengambil data dari table pegawai sesuai pencarian data
+        $narasumbers = User::where('username','like',"%".$cari."%")->paginate();
+ 
+        // mengirim data pegawai ke view index
+        return view('penyelenggara.pencarian',['users' => $narasumbers],compact('narasumbers'));
+    }
+
+    public function show($id)
+    {
+        return view('penyelenggara.pencarian.show', ['kegiatan' => kegiatan::findOrFail($id)]);
+    }
+
 
     // view penyelenggara profile
     public function profile()
@@ -68,17 +94,42 @@ class PenyelenggaraController extends Controller
         $user->kecamatan = $request->kecamatan;
         $user->alamat = $request->alamat;
         $user->kodepos = $request->kodepos;
+        $user->nomor_hp = $request->nomor_hp;
+        $user->nomor_wa = $request->nomor_wa;
+        $user->nama_penanggungjawab = $request->nama_penanggungjawab;
 
-        if ($request->hasfile('foto')) {
-            $file = $request->file('foto');
+        if ($request->hasfile('logo_penyelenggara')) {
+            $file = $request->file('logo_penyelenggara');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
-            $file->move('uploads/foto/', $filename);
-            $user->foto = $filename;
+            $file->move('uploads/logo_penyelenggara/', $filename);
+            $user->logo_penyelenggara = $filename;
         } else {
             return $request;
-            $user->foto = '';
-        }
+            $user->logo_penyelenggara = '';
+        };
+
+        if ($request->hasfile('scan_strukturkepengurusan')) {
+            $file = $request->file('scan_strukturkepengurusan');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/scan_strukturkepengurusan/', $filename);
+            $user->scan_strukturkepengurusan = $filename;
+        } else {
+            return $request;
+            $user->scan_strukturkepengurusan = '';
+        };
+
+        if ($request->hasfile('scan_identitaspenanggungjawab')) {
+            $file = $request->file('scan_identitaspenanggungjawab');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/scan_identitaspenanggungjawab/', $filename);
+            $user->scan_identitaspenanggungjawab = $filename;
+        } else {
+            return $request;
+            $user->scan_identitaspenanggungjawab = '';
+        };
         
         $user->jenis_identitas = $request->jenis_identitas;
 
@@ -155,7 +206,9 @@ class PenyelenggaraController extends Controller
 
     public function kegiatan_index()
     {
-        return view('penyelenggara.kegiatan.index', ['kegiatans' => kegiatan::latest()->paginate(10)]);
+        
+        $kegiatans = kegiatan::activeWithUserFindByUserId(User::auth()->id);
+        return view('penyelenggara.kegiatan.index', compact('kegiatans'));
     }
 
     public function kegiatan_show($id)
@@ -261,7 +314,6 @@ class PenyelenggaraController extends Controller
     {
         return kegiatan::create([
             'namakegiatan' => $request->namakegiatan,
-            'deskripsi' => $request->deskripsi,
             'tanggalpelaksanaan' => $request->tanggalpelaksanaan,
             'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
             'alamatkegiatan' => $request->alamatkegiatan,
@@ -273,7 +325,8 @@ class PenyelenggaraController extends Controller
             'nama_penanggungjawab' => $request->nama_penanggungjawab,
             'jabatan_penanggungjawab' => $request->jabatan_penanggungjawab,
             'nomor_hp' => $request->nomor_hp,
-            'nomor_wa' => $request->nomor_wa
+            'nomor_wa' => $request->nomor_wa,
+            'user_id' => $request->user_id
         ])->save();
     }
 

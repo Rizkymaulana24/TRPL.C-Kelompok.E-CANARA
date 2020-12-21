@@ -21,8 +21,8 @@ class RedirectIfAuthenticated
             if (Auth::user()->role == 'admin') {
                 return redirect()->route('admin');
             }
-            if (Auth::user()->role == 'farmer') {
-                return redirect()->route('farmer');
+            if (Auth::user()->role == 'narasumber') {
+                return redirect()->route('narasumber');
             }
             Auth::logout();
             return redirect()->route('welcome');

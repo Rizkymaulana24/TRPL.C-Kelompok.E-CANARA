@@ -25,7 +25,9 @@ Route::view('/', 'welcome')->middleware('guest')->name('welcome');
 Route::get('login', 'AuthController@showLoginForm')->name('login');
 Route::post('login', 'AuthController@login');
 Route::get('register', 'AuthController@showRegisterForm')->name('register');
+Route::get('registerprem', 'AuthController@showRegisterpremForm')->name('registerprem');
 Route::post('store', 'AuthController@pengguna_store')->name('store');
+Route::post('storeprem', 'AuthController@pengguna_storeprem')->name('storeprem');
 Route::post('register', 'AuthController@register');
 Route::post('logout', 'AuthController@logout')->name('logout');
 
@@ -129,15 +131,13 @@ Route::group(['prefix' => 'narasumber'], function ()
         Route::get('/profile/password', 'NarasumberController@password')->name('.password');
         Route::put('/profile/update', 'NarasumberController@update')->name('.update');
         Route::put('/profile/update/password', 'NarasumberController@updatePassword')->name('.updatePassword');
+        Route::get('/pencarian', 'NarasumberController@pencarian')->name('.pencarian');
+        Route::get('/cari', 'NarasumberController@cari')->name('.cari');
         
-        Route::name('.penyelenggara')->group(function()
+        Route::name('.pencarian')->group(function()
         {
             // url : /admin/penyelenggara
-            Route::group(['prefix' => 'penyelenggara'], function ()
-            {
-                Route::get('/', 'NarasumberController@penyelenggara_index');
-                Route::get('/{id}', 'NarasumberController@penyelenggara_show')->name('.show');
-            });
+            Route::get('/pencarian/show/{id}', 'NarasumberController@show')->name('.show');
         });
 
         Route::name('.kegiatan')->group(function()
@@ -167,11 +167,13 @@ Route::group(['prefix' => 'narasumberprem'], function ()
         Route::get('/profile/password', 'NarasumberpremController@password')->name('.password');
         Route::put('/profile/update', 'NarasumberpremController@update')->name('.update');
         Route::put('/profile/update/password', 'NarasumberpremController@updatePassword')->name('.updatePassword');
+        Route::get('/pencarian', 'NarasumberpremController@pencarian')->name('.pencarian');
+        Route::get('/cari', 'NarasumberpremController@cari')->name('.cari');
 
-        Route::name('.kegiatan')->group(function()
+        Route::name('.pencarian')->group(function()
         {
             // url : /Narasumberprem/kegiatan
-            Route::get('/kegiatan', 'NarasumberpremController@kegiatan_index');
+            Route::get('/pencarian/show/{id}', 'NarasumberpremController@show')->name('.show');
         });
     });
 
@@ -195,16 +197,24 @@ Route::group(['prefix' => 'penyelenggara'], function ()
         Route::get('/profile/password', 'PenyelenggaraController@password')->name('.password');
         Route::put('/profile/update', 'PenyelenggaraController@update')->name('.update');
         Route::put('/profile/update/password', 'PenyelenggaraController@updatePassword')->name('.updatePassword');
+        Route::get('/pencarian', 'PenyelenggaraController@pencarian')->name('.pencarian');
+        Route::get('/cari', 'PenyelenggaraController@cari')->name('.cari');
+
+        Route::name('.pencarian')->group(function()
+        {
+            
+            Route::get('/pencarian/show/{id}', 'PenyelenggaraController@show')->name('.show');
+        });
 
         Route::name('.kegiatan')->group(function()
         {
             // url : /Penyelenggara/kegiatan
             Route::get('/kegiatan', 'PenyelenggaraController@kegiatan_index');
-            Route::get('/create', 'PenyelenggaraController@kegiatan_create')->name('.create');
-            Route::post('/store', 'PenyelenggaraController@kegiatan_store')->name('.store');
-            Route::get('/{id}', 'PenyelenggaraController@kegiatan_show')->name('.show');
-            Route::get('/{id}/edit', 'PenyelenggaraController@kegiatan_edit')->name('.edit');
-            Route::put('/{id}', 'PenyelenggaraController@kegiatan_update')->name('.update');
+            Route::get('/kegiatan/create', 'PenyelenggaraController@kegiatan_create')->name('.create');
+            Route::post('/kegiatan/store', 'PenyelenggaraController@kegiatan_store')->name('.store');
+            Route::get('/kegiatan/{id}', 'PenyelenggaraController@kegiatan_show')->name('.show');
+            Route::get('/kegiatan/{id}/edit', 'PenyelenggaraController@kegiatan_edit')->name('.edit');
+            Route::put('/kegiatan/{id}', 'PenyelenggaraController@kegiatan_update')->name('.update');
         });
     });
 
@@ -228,6 +238,14 @@ Route::group(['prefix' => 'penyelenggaraprem'], function ()
         Route::get('/profile/password', 'PenyelenggarapremController@password')->name('.password');
         Route::put('/profile/update', 'PenyelenggarapremController@update')->name('.update');
         Route::put('/profile/update/password', 'PenyelenggarapremController@updatePassword')->name('.updatePassword');
+        Route::get('/pencarian', 'PenyelenggarapremController@pencarian')->name('.pencarian');
+        Route::get('/cari', 'PenyelenggarapremController@cari')->name('.cari');
+
+        Route::name('.pencarian')->group(function()
+        {
+            
+            Route::get('/pencarian/show/{id}', 'PenyelenggarapremController@show')->name('.show');
+        });
 
         Route::name('.kegiatan')->group(function()
         {

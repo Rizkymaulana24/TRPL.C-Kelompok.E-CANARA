@@ -12,7 +12,7 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
         <a class="nav-link {{ Request::is('admin') || Request::is('admin/profile*') ? 'active' : 'text-dark' }}" href="{{ route('admin') }}">Dashboard</a>
       </li>
       <li class="nav-item my-1">
-        <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="btn dropdown-btn dropdown-toggle text-dark">Data Akun Free </a>
+        <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="btn dropdown-btn dropdown-toggle text-light nav-link {{ Request::is('admin/narasumberfree*') || Request::is('admin/penyelenggarafree*') ? 'active' : 'text-dark' }}">Data Akun Free </a>
         <ul class="collapse list-unstyled" id="pageSubmenu1">
           <li class="nav-item my-2">
             <a class="nav-link {{ Request::is('admin/narasumberfree*') ? 'active' : 'text-dark' }}" href="{{ route('admin.narasumberfree') }}">Data Narasumber</a>
@@ -23,7 +23,7 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
         </ul>
       </li>
       <li class="nav-item my-1">
-        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="btn dropdown-btn dropdown-toggle text-dark">Data Akun Premium </a>
+        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="btn dropdown-btn dropdown-toggle text-light nav-link {{ Request::is('admin/narasumberpremium*') || Request::is('admin/penyelenggarapremium*') ? 'active' : 'text-dark' }}">Data Akun Premium </a>
         <ul class="collapse list-unstyled" id="pageSubmenu">
           <li class="nav-item my-2">
             <a class="nav-link {{ Request::is('admin/narasumberpremium*') ? 'active' : 'text-dark' }}" href="{{ route('admin.narasumberpremium') }}">Data Narasumber</a>

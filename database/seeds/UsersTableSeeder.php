@@ -48,6 +48,8 @@ class UsersTableSeeder extends Seeder
 
         foreach ($users as $user) {
             User::create($user);
+
+            factory(User::class, 1)->create();
         }
     }
 }

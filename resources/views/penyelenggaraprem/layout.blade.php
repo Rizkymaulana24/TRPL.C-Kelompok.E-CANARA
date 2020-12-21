@@ -14,6 +14,9 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
       <li class="nav-item my-1">
         <a class="nav-link {{ Request::is('penyelenggaraprem/kegiatan*') ? 'active' : 'text-dark' }}" href="{{ route('penyelenggaraprem.kegiatan') }}">Data Kegiatan</a>
       </li>
+      <li class="nav-item my-1">
+        <a class="nav-link {{ Request::is('penyelenggaraprem/pencarian*') ? 'active' : 'text-dark' }}" href="{{ route('penyelenggaraprem.pencarian') }}">Cari Narasumber</a>
+      </li>
     </ul>
   </div>
 @endsection

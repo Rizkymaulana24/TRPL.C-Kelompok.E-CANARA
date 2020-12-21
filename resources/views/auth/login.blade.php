@@ -80,13 +80,54 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
 
               <div class="form-group">
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn btn-primary">Sign In</button>
                 </div>
-                <p>Belum punya akun? <a href="{{ route('register') }}" >Daftar</a></p>
+                <p>Belum punya akun? <a role="button" data-toggle="modal" data-target="#daftarmodal" >Buat Akun</a></p>
               </div>
               
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="daftarmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Pilih Jenis Akun</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#bayarmodal" >Premium</a>
+          <a class="btn btn-primary" type="button" href="{{ route('register') }}">Free</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="bayarmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lakukan Pembayaran Terlebih Dahulu</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Nama Bank : BRI</p>
+          <p>Nomor Rekening : 8654 2232 4197 2254</p>
+          <p>Atas Nama : CANARA</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <a class="btn btn-primary" type="button" href="{{ route('registerprem') }}">Lanjutkan</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
         </div>
       </div>
     </div>

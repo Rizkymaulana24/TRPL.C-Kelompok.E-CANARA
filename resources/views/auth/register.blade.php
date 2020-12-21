@@ -26,13 +26,23 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
 
           <form action="{{ route('store') }}" method="POST">
             {{ csrf_field() }}
-            <div class="form-group">
 
-              <label for="name">Nama</label>
-              <input type="text" class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}" id="name" name="name" value="{{ old('name') }}" aria-describedby="nameFeedback" autofocus>
-              @if ($errors->has('name'))
-                <div id="nameFeedback" class="invalid-feedback">
-                  <strong>{{ $errors->first('name') }}</strong>
+            <div class="form-group">
+              <label for="nama_lengkap">Nama Lengkap</label>
+              <input type="text" class="form-control {{$errors->has('nama_lengkap') ? 'is-invalid' : ''}}" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" aria-describedby="nama_lengkapFeedback" autofocus>
+              @if ($errors->has('nama_lengkap'))
+                <div id="nama_lengkapFeedback" class="invalid-feedback">
+                  <strong>{{ $errors->first('nama_lengkap') }}</strong>
+                </div>
+              @endif
+            </div>
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control {{$errors->has('username') ? 'is-invalid' : ''}}" id="username" name="username" value="{{ old('username') }}" aria-describedby="usernameFeedback" autofocus>
+              @if ($errors->has('username'))
+                <div id="usernameFeedback" class="invalid-feedback">
+                  <strong>{{ $errors->first('username') }}</strong>
                 </div>
               @endif
             </div>
@@ -56,26 +66,25 @@ body {background-image: linear-gradient(to bottom right, #3D4DAC, #F14494);
                 </div>
               @endif
             </div>
-
-            <div class="form-group">
-            <label>Daftar Sebagai :</label>
-            <div class="form-group">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="role" id="narasumber" value="narasumber">
-                <label class="form-check-label" for="narasumber">Narasumber</label>
+    
+              <div class="form-group">
+                <label for="role">Daftar Sebagai</label>
+                <select class="form-control {{$errors->has('role') ? 'is-invalid' : ''}}" id="role" name="role" value="{{ old('role') }}" aria-describedby="roleFeedback" autofocus>
+                <option value="penyelenggara">penyelenggara</option>
+                <option value="narasumber">narasumber</option>
+                </select>
+                @if ($errors->has('role'))
+                  <div id="roleFeedback" class="invalid-feedback">
+                    <strong>{{ $errors->first('role') }}</strong>
+                  </div>
+                @endif
               </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="role" id="penyelenggara" value="penyelenggara">
-                <label class="form-check-label" for="penyelenggara">Penyelenggara</label>
-              </div>
-            </div>
-          </div>
 
               <div class="form-group">
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary">Daftar</button>
+                  <button type="submit" class="btn btn-primary">Buat Akun</button>
                 </div>
-                <p>Sudah punya akun? <a href="{{ route('login') }}" >Login</a></p>
+                <p>Sudah punya akun? <a href="{{ route('login') }}" >Sign In</a></p>
               </div>
             
           </form>

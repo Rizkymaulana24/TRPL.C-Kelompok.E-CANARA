@@ -72,31 +72,6 @@
           <label for="kodepos">Kode Pos</label>
           <input type="text" class="form-control {{$errors->has('kodepos') ? 'is-invalid' : ''}}" id="kodepos" name="kodepos" value="{{ $user->kodepos }}" disabled>
         </div>
-        
-        <table class="table table-bordered table-hover table-striped">
-          <thead>
-            <tr>
-              <th>Foto</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td> 
-                <img src="{{ asset('uploads/foto/'.$user->foto) }}" style="height:120px; width:200px"/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="form-group">
-          <label for="jabatan">Jabatan</label>
-          <input type="text" class="form-control {{$errors->has('jabatan') ? 'is-invalid' : ''}}" id="jabatan" name="jabatan" value="{{ $user->jabatan }}" disabled>
-        </div>
-
-        <div class="form-group">
-          <label for="tarif_perjam">Tarif Per Jam</label>
-          <input type="text" class="form-control {{$errors->has('tarif_perjam') ? 'is-invalid' : ''}}" id="tarif_perjam" name="tarif_perjam" value="{{ $user->tarif_perjam }}" disabled>
-        </div>
 
         <div class="form-group">
           <label for="nomor_hp">Nomor HP</label>
@@ -104,20 +79,30 @@
         </div>
 
         <div class="form-group">
-          <label for="nomor_wa">Nomor WA</label>
+          <label for="nomor_wa">Nomor Wa</label>
           <input type="text" class="form-control {{$errors->has('nomor_wa') ? 'is-invalid' : ''}}" id="nomor_wa" name="nomor_wa" value="{{ $user->nomor_wa }}" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="nama_penanggungjawab">Nama Penanggungjawab</label>
+          <input type="text" class="form-control {{$errors->has('nama_penanggungjawab') ? 'is-invalid' : ''}}" id="nama_penanggungjawab" name="nama_penanggungjawab" value="{{ $user->nama_penanggungjawab }}" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="jabatan_penanggungjawab">Jabatan Penanggungjawab</label>
+          <input type="text" class="form-control {{$errors->has('jabatan_penanggungjawab') ? 'is-invalid' : ''}}" id="jabatan_penanggungjawab" name="jabatan_penanggungjawab" value="{{ $user->jabatan_penanggungjawab }}" disabled>
         </div>
         
         <table class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
-              <th>Scan CV</th>
+              <th>Logo</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td> 
-                <img src="{{ asset('uploads/scan_cv/'.$user->scan_cv) }}" style="height:120px; width:200px"/>
+                <img src="{{ asset('uploads/logo_penyelenggara/'.$user->logo_penyelenggara) }}" style="height:120px; width:200px"/>
               </td>
             </tr>
           </tbody>
@@ -126,28 +111,37 @@
         <table class="table table-bordered table-hover table-striped">
           <thead>
             <tr>
-              <th>Scan Sertifikat</th>
+              <th>Scan Struktur Kepengurusan</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td> 
-                <img src="{{ asset('uploads/scan_sertifikat/'.$user->scan_sertifikat) }}" style="height:120px; width:200px"/>
+                <img src="{{ asset('uploads/scan_strukturkepengurusan/'.$user->scan_strukturkepengurusan) }}" style="height:120px; width:200px"/>
               </td>
             </tr>
           </tbody>
         </table>
 
         <div class="form-group">
-          <label for="jenis_identitas">Jenis Identitas</label>
-        <select name="jenis_identitas" id="jenis_identitas" class="form-control {{$errors->has('jenis_identitas') ? 'is-invalid' : ''}}" id="jenis_identitas" name="jenis_identitas" value="{{ $user->jenis_identitas }}" disabled>
-          <option value="pilih">pilih</option>
-          <option value="ktp">ktp</option>
-          <option value="sim">sim</option>
-          <option value="passport">passport</option>
-          <option value="npwp">npwp</option>
-        </select>
+          <label for="jenis_identitaspenanggungjawab">Jenis Identitas Penanggungjawab</label>
+          <input type="text" class="form-control {{$errors->has('jenis_identitaspenanggungjawab') ? 'is-invalid' : ''}}" id="jenis_identitaspenanggungjawab" name="jenis_identitaspenanggungjawab" value="{{ $user->jenis_identitaspenanggungjawab }}" disabled>
         </div>
+        
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Scan Identitas Penanggungjawab</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> 
+                <img src="{{ asset('uploads/scan_identitaspenanggungjawab/'.$user->scan_identitaspenanggungjawab) }}" style="height:120px; width:200px"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <div class="spacer-2"></div>
 

@@ -98,10 +98,105 @@
             @endif
           </div>
 
+          <div class="form-group">
+            <label for="nomor_hp">Nomor HP</label>
+            <input type="text" class="form-control {{$errors->has('nomor_hp') ? 'is-invalid' : ''}}" id="nomor_hp" name="nomor_hp" value="{{ $user->nomor_hp }}" aria-describedby="nomor_hpFeedback">
+            @if ($errors->has('nomor_hp'))
+              <div id="nomor_hpFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('nomor_hp') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="nomor_wa">Nomor WA</label>
+            <input type="text" class="form-control {{$errors->has('nomor_wa') ? 'is-invalid' : ''}}" id="nomor_wa" name="nomor_wa" value="{{ $user->nomor_wa }}" aria-describedby="nomor_waFeedback">
+            @if ($errors->has('nomor_wa'))
+              <div id="nomor_waFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('nomor_wa') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="nama_penanggungjawab">Nama Penanggungjawab</label>
+            <input type="text" class="form-control {{$errors->has('nama_penanggungjawab') ? 'is-invalid' : ''}}" id="nama_penanggungjawab" name="nama_penanggungjawab" value="{{ $user->nama_penanggungjawab }}" aria-describedby="nama_penanggungjawabFeedback">
+            @if ($errors->has('nama_penanggungjawab'))
+              <div id="nama_penanggungjawabFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('nama_penanggungjawab') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <div class="form-group">
+            <label for="jabatan_penanggungjawab">Jabatan Penanggungjawab</label>
+            <input type="text" class="form-control {{$errors->has('jabatan_penanggungjawab') ? 'is-invalid' : ''}}" id="jabatan_penanggungjawab" name="jabatan_penanggungjawab" value="{{ $user->jabatan_penanggungjawab }}" aria-describedby="jabatan_penanggungjawabFeedback">
+            @if ($errors->has('jabatan_penanggungjawab'))
+              <div id="jabatan_penanggungjawabFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('jabatan_penanggungjawab') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <label for="logo_penyelenggara">Logo Penyelenggara</label>
+          <div class="input-group">
+            <input type="file" class="custom-file-input {{$errors->has('logo_penyelenggara') ? 'is-invalid' : ''}}" id="logo_penyelenggara" name="logo_penyelenggara" value="{{ $user->logo_penyelenggara }}" aria-describedby="logo_penyelenggaraFeedback">
+            <label for="logo_penyelenggara" class='custom-file-label'>Pilih Logo</label>
+            @if ($errors->has('logo_penyelenggara'))
+              <div id="logo_penyelenggaraFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('logo_penyelenggara') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <label for="scan_strukturkepengurusan">Scan Struktur Kepengurusan</label>
+          <div class="input-group">
+            <input type="file" class="custom-file-input {{$errors->has('scan_strukturkepengurusan') ? 'is-invalid' : ''}}" id="scan_strukturkepengurusan" name="scan_strukturkepengurusan" value="{{ $user->scan_strukturkepengurusan }}" aria-describedby="scan_strukturkepengurusanFeedback">
+            <label for="scan_strukturkepengurusan" class='custom-file-label'>Pilih File</label>
+            @if ($errors->has('scan_strukturkepengurusan'))
+              <div id="scan_strukturkepengurusanFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('scan_strukturkepengurusan') }}</strong>
+              </div>
+            @endif
+          </div>
+
+        <div class="form-group">
+          <label for="jenis_identitas">Jenis Identitas</label>
+        <select class="form-control {{$errors->has('jenis_identitas') ? 'is-invalid' : ''}}" id="jenis_identitas" name="jenis_identitas" value="{{ $user->jenis_identitas }}" aria-describedby="jenis_identitasFeedback">
+          <option value="pilih">pilih</option>
+          <option value="ktp">ktp</option>
+          <option value="sim">sim</option>
+          <option value="passport">passport</option>
+          <option value="npwp">npwp</option>
+        </select>
+        </div>
+
+          <label for="scan_identitaspenanggungjawab">Scan Identitas Penanggungjawab</label>
+          <div class="input-group">
+            <input type="file" class="custom-file-input {{$errors->has('scan_identitaspenanggungjawab') ? 'is-invalid' : ''}}" id="scan_identitaspenanggungjawab" name="scan_identitaspenanggungjawab" value="{{ $user->scan_identitaspenanggungjawab }}" aria-describedby="scan_identitaspenanggungjawabFeedback">
+            <label for="scan_identitaspenanggungjawab" class='custom-file-label'>Pilih File</label>
+            @if ($errors->has('scan_identitaspenanggungjawab'))
+              <div id="scan_identitaspenanggungjawabFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('scan_identitaspenanggungjawab') }}</strong>
+              </div>
+            @endif
+          </div>
+
+          <label for="scan_buktitransfer">Scan Bukti Transfer</label>
+          <div class="input-group">
+            <input type="file" class="custom-file-input {{$errors->has('scan_buktitransfer') ? 'is-invalid' : ''}}" id="scan_buktitransfer" name="scan_buktitransfer" value="{{ $user->scan_buktitransfer }}" aria-describedby="scan_buktitransferFeedback">
+            <label for="scan_buktitransfer" class='custom-file-label'>Pilih File</label>
+            @if ($errors->has('scan_buktitransfer'))
+              <div id="scan_buktitransferFeedback" class="invalid-feedback">
+                <strong>{{ $errors->first('scan_buktitransfer') }}</strong>
+              </div>
+            @endif
+          </div>
+
           <div class="spacer-2"></div>
     
           <div class="form-group">
-            <a class="btn btn-secondary" href="{{ route('narasumber.profile') }}" >Batal</a>
+            <a class="btn btn-secondary" href="{{ route('penyelenggaraprem') }}" >Batal</a>
             <button type="submit" class="btn btn-primary">Simpan</button>
           </div>
           

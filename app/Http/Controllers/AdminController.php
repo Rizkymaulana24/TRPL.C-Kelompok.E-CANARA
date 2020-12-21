@@ -145,13 +145,13 @@ class AdminController extends Controller
     // view table semua narasumber
     public function narasumber_index()
     {
-        $narasumbers = Narasumber::where('role','narasumber')->paginate(10);
+        $narasumbers = User::where('role','narasumber')->paginate(10);
         return view('admin.narasumber.index', compact('narasumbers'));
     }
 
     public function narasumberprem_index()
     {
-        $narasumbers = Narasumber::where('role','narasumberprem')->paginate(10);
+        $narasumbers = User::where('role','narasumberprem')->paginate(10);
         return view('admin.narasumberprem.index', compact('narasumbers'));
     }
 
@@ -272,13 +272,13 @@ class AdminController extends Controller
     // view table semua penyelenggara
     public function penyelenggara_index()
     {
-        $penyelenggaras = Penyelenggara::where('role','penyelenggara')->paginate(10);
+        $penyelenggaras = User::where('role','penyelenggara')->paginate(10);
         return view('admin.penyelenggara.index', compact('penyelenggaras'));
     }
 
     public function penyelenggaraprem_index()
     {
-        $penyelenggaras = Penyelenggara::where('role','penyelenggaraprem')->paginate(10);
+        $penyelenggaras = User::where('role','penyelenggaraprem')->paginate(10);
         return view('admin.penyelenggaraprem.index', compact('penyelenggaras'));
     }
 

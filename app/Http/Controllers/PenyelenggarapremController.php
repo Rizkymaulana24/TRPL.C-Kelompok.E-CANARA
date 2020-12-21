@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\kegiatan;
+use App\Narasumber;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Hash;
@@ -27,6 +28,30 @@ class PenyelenggarapremController extends Controller
     public function index()
     {
         return view('penyelenggaraprem.index');
+    }
+
+    public function pencarian()
+    {
+        $narasumbers = User::where('role','narasumber')->paginate(10);
+        return view('penyelenggaraprem.pencarian', compact('narasumbers'));
+    }
+
+    public function cari(Request $request)
+    {
+        // menangkap data pencarian
+        $cari = $request->cari;
+ 
+        // mengambil data dari table pegawai sesuai pencarian data
+        $narasumbers = User::where('username','like',"%".$cari."%")->paginate();
+ 
+        // mengirim data pegawai ke view index
+        return view('penyelenggaraprem.pencarian',['users' => $narasumbers],compact('narasumbers'));
+    }
+
+    public function show($id)
+    {
+        $narasumber = Narasumber::find($id);
+        return view('penyelenggaraprem.pencarian.show', ['users' => User::findOrFail($id)],compact('narasumber'));
     }
 
     // view penyelenggaraprem profile
@@ -68,7 +93,55 @@ class PenyelenggarapremController extends Controller
         $user->kecamatan = $request->kecamatan;
         $user->alamat = $request->alamat;
         $user->kodepos = $request->kodepos;
+        $user->nomor_hp = $request->nomor_hp;
+        $user->nomor_wa = $request->nomor_wa;
+        $user->nama_penanggungjawab = $request->nama_penanggungjawab;
 
+        if ($request->hasfile('logo_penyelenggara')) {
+            $file = $request->file('logo_penyelenggara');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/logo_penyelenggara/', $filename);
+            $user->logo_penyelenggara = $filename;
+        } else {
+            return $request;
+            $user->logo_penyelenggara = '';
+        };
+
+        if ($request->hasfile('scan_strukturkepengurusan')) {
+            $file = $request->file('scan_strukturkepengurusan');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/scan_strukturkepengurusan/', $filename);
+            $user->scan_strukturkepengurusan = $filename;
+        } else {
+            return $request;
+            $user->scan_strukturkepengurusan = '';
+        };
+
+        if ($request->hasfile('scan_identitaspenanggungjawab')) {
+            $file = $request->file('scan_identitaspenanggungjawab');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/scan_identitaspenanggungjawab/', $filename);
+            $user->scan_identitaspenanggungjawab = $filename;
+        } else {
+            return $request;
+            $user->scan_identitaspenanggungjawab = '';
+        };
+
+        if ($request->hasfile('scan_buktitransfer')) {
+            $file = $request->file('scan_buktitransfer');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads/scan_buktitransfer/', $filename);
+            $user->scan_buktitransfer = $filename;
+        } else {
+            return $request;
+            $user->scan_buktitransfer = '';
+        };
+        
+        $user->jenis_identitas = $request->jenis_identitas;
         if ($user->save()) {
             Session::flash('success','Data berhasil diperbarui');
         } else {
@@ -142,7 +215,8 @@ class PenyelenggarapremController extends Controller
 
     public function kegiatan_index()
     {
-        return view('penyelenggaraprem.kegiatan.index', ['kegiatans' => kegiatan::latest()->paginate(10)]);
+        $kegiatans = Kegiatan::activeWithUserFindByUserId(User::auth()->id);
+        return view('penyelenggaraprem.kegiatan.index', compact('kegiatans'));
     }
 
     public function kegiatan_show($id)
@@ -161,7 +235,7 @@ class PenyelenggarapremController extends Controller
         if ($validator->fails()) return redirect()->route('penyelenggaraprem.kegiatan.create')->withErrors($validator)->withInput($request->all());
 
         if ($this->attemptCreatekegiatan($request)) {
-            Session::flash('success', 'Data kegiatan berhasil di ubah');
+            Session::flash('success', 'Data kegiatan berhasil di buat');
         } else {
             Session::flash('failure', 'Data failure');
         }
@@ -226,13 +300,13 @@ class PenyelenggarapremController extends Controller
         return Validator::make($request->all(), [
             'namakegiatan' => 'required|min:5|max:60',
             'deskripsi' => 'required|max:2048|',
-            'tglkegiatan' => 'required',
+            'tanggalpelaksanaan' => 'required',
         ], [
             'namakegiatan.required'=> 'Nama kegiatan harus di isi',
             'namakegiatan.max' => 'Nama kegiatan terlalu panjang',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong',
             'deskripsi.max' => 'Deskripsi terlalu panjang',
-            'tglkegiatan.required' => 'Tanggal kegiatan harus di isi',
+            'tanggalpelaksanaan.required' => 'Tanggal kegiatan harus di isi',
         ]);
     }
 
@@ -248,8 +322,19 @@ class PenyelenggarapremController extends Controller
     {
         return kegiatan::create([
             'namakegiatan' => $request->namakegiatan,
+            'tanggalpelaksanaan' => $request->tanggalpelaksanaan,
+            'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
+            'alamatkegiatan' => $request->alamatkegiatan,
+            'jenis' => $request->jenis,
+            'kategori' => $request->kategori,
+            'tingkat' => $request->tingkat,
             'deskripsi' => $request->deskripsi,
-            'tglkegiatan' => $request->tglkegiatan
+            'scan_proposalkegiatan' => $request->scan_proposalkegiatan,
+            'nama_penanggungjawab' => $request->nama_penanggungjawab,
+            'jabatan_penanggungjawab' => $request->jabatan_penanggungjawab,
+            'nomor_hp' => $request->nomor_hp,
+            'nomor_wa' => $request->nomor_wa,
+            'user_id' => $request->user_id
         ])->save();
     }
 
@@ -264,8 +349,18 @@ class PenyelenggarapremController extends Controller
     protected static function ext_AttemptUpdatekegiatan($request, $kegiatan)
     {
         $kegiatan->namakegiatan = $request->namakegiatan;
+        $kegiatan->tanggalpelaksanaan = $request->tanggalpelaksanaan;
+        $kegiatan->waktu_pelaksanaan = $request->waktu_pelaksanaan;
+        $kegiatan->alamatkegiatan = $request->alamatkegiatan;
+        $kegiatan->jenis = $request->jenis;
+        $kegiatan->kategori = $request->kategori;
+        $kegiatan->tingkat = $request->tingkat;
         $kegiatan->deskripsi = $request->deskripsi;
-        $kegiatan->tglkegiatan = $request->tglkegiatan;
+        $kegiatan->scan_proposalkegiatan = $request->scan_proposalkegiatan;
+        $kegiatan->nama_penanggungjawab = $request->nama_penanggungjawab;
+        $kegiatan->jabatan_penanggungjawab = $request->jabatan_penanggungjawab;
+        $kegiatan->nomor_hp = $request->nomor_hp;
+        $kegiatan->nomor_wa = $request->nomor_wa;
         return $kegiatan->save();
     }
 }

@@ -31,12 +31,17 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
+    public function showRegisterpremForm()
+    {   
+        return view('auth.registerprem');
+    }
+
     // api daftar save
     public function pengguna_store(Request $request)
     {
         $validator = $this->validateDaftar($request);
         if ($validator->fails()) {
-            return redirect()->route('register')->withErrors($validator)->withInput($request->except('password_confirmation'));
+            return redirect()->route('register')->withErrors($validator);
         }
 
         if ($this->attemptDaftar($request)) {
@@ -54,14 +59,11 @@ class AuthController extends Controller
             'nama_lengkap' => 'required|min:3|max:50',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'password_confirmation' => 'required|min:8|same:password',
         ], [
             'nama_lengkap.required' => 'Nama harus di isi',
             'email.required' => 'Email harus di isi',
             'email.unique' => 'Email sudah terdaftar',
             'password.required' => 'Password harus di isi',
-            'password_confirmation.required' => 'Konfirmasi password harus di isi',
-            'password_confirmation.same' => 'Password konfirmasi tidak sama dengan password',
         ]);
     }
 
@@ -79,7 +81,7 @@ class AuthController extends Controller
             'kota' => $request->kota,
             'provinsi' => $request->provinsi,
             'kodepos' => $request->kodepos,
-            'role' => $request->role,
+            'role' => $request->role
         ])->save();
     }
 
